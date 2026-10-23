@@ -1,28 +1,18 @@
 package by.bseu.pp.lab03.model;
-
-/**
- * One line of an order: a product and its quantity.
- */
-public class OrderItem {
-    private final Product product;
-    private final int quantity;
-
+public class OrderItem { private final Product product; private final int quantity;
     public OrderItem(Product product, int quantity) {
-        // TODO: validate constructor arguments
+        if (product == null) throw new IllegalArgumentException("Товар не может быть null");
+        if (quantity <= 0) throw new IllegalArgumentException("Количество должно быть больше 0");
+
         this.product = product;
         this.quantity = quantity;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
     public double getAmount() {
-        // TODO: delegate the calculation to Product
-        throw new UnsupportedOperationException("TODO");
+        // Делегируем расчет самому товару (Product уже умеет это делать)
+        return product.calculateAmount(quantity);
     }
+
+    public Product getProduct() { return product; }
+    public int getQuantity() { return quantity; }
 }
